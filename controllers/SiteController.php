@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -9,6 +10,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\UsersForm;
 
 class SiteController extends Controller
 {
@@ -129,5 +131,18 @@ class SiteController extends Controller
     {
         $name = "sutiporn";
         return $this->render('Hello',array('name'=>$name));
+    }
+    public function actionUsers()
+    {
+        $model = new UsersForm();
+        if($model->load(Yii::$app->request->post())&&$model->validate())
+        {
+            Yii::$app->session->setFlash('success','you have enter the data correctly');
+        }
+
+            return $this->render('UsersForm', ['model' => $model]);
+
+
+
     }
 }
